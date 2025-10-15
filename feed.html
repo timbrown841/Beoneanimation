@@ -1,0 +1,161 @@
+
+  <!DOCTYPE html>
+<!--
+    
+
+    
+
+  
+  
+      
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>404 Error: Page Not Found</title>
+
+    
+    <script async src="https://static.parastorage.com/polyfill/v2/polyfill.min.js?features=default,es6,es7,es2017&flags=gated&unknown=polyfill&rum=0"></script>
+    <script src="https://static.parastorage.com/unpkg-semver/fedops-logger@5/fedops-logger.bundle.min.js"></script>
+    <script>fedopsLogger.reportAppLoadStarted("classic-error-pages-statics");</script>
+    <script src="https://static.parastorage.com/unpkg-semver/header-footer-provider/app.bundle.min.js"></script>
+    <script crossorigin src="https://static.parastorage.com/unpkg/react@18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://static.parastorage.com/unpkg/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+
+    <link rel="stylesheet" href="//static.parastorage.com/services/classic-error-pages-statics/1.82.0/app.min.css">
+
+    <link rel="preload" as="font" href="https://static.parastorage.com/unpkg/@wix/wix-fonts@1.14.0/media/WixMadeforTextVF_W_Wght.8022447a.woff2" crossorigin>
+    <link rel="preload" as="font" href="https://static.parastorage.com/unpkg/@wix/wix-fonts@1.14.0/media/WixMadeforDisplayVF_W_Wght.ab35e4df.woff2" crossorigin>
+    <link rel="stylesheet" href="https://static.parastorage.com/unpkg/@wix/wix-fonts@1.14.0/madefor.min.css">
+    <link rel="stylesheet" href="https://static.parastorage.com/unpkg/@wix/wix-fonts@1.14.0/madeforDisplay.min.css">
+
+  <link rel="stylesheet" href="styles.patched.css">
+</head>
+<body>
+<div id="root"></div>
+<script>
+    window.__LOCALE__ = 'en';
+    window.__ERROR_DATA__ = {
+        staticsUrl: '//static.parastorage.com/services/classic-error-pages-statics/1.82.0/',
+        baseDomain: 'wix.com',
+        errorCode: '404-NotBranded',
+        exceptionName: '',
+        serverErrorCode: '-100',
+        data: {},
+        brand: 'wix',
+        requestId: '1759099932.7094371978626590661'
+    };
+</script>
+<script src="//static.parastorage.com/services/classic-error-pages-statics/1.82.0/app.bundle.min.js"></script>
+<!-- Custom Navigation Bar (auto-injected) -->
+<nav class="custom-nav">
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="#animation">Animation</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<script>
+(function(){
+  function tagByText(regex, id){
+    try{
+      var all = document.querySelectorAll('h1,h2,h3,h4,h5,p,div,section,header,main,footer,span,a');
+      var found = null;
+      for(var i=0;i<all.length;i++){
+        var t = (all[i].textContent || '').trim();
+        if(regex.test(t)){
+          found = all[i];
+          break;
+        }
+      }
+      if(found){
+        var node = found;
+        for(var j=0;j<6 && node && node.parentElement; j++){
+          if(node.id){ break; }
+          // choose a semantic container if possible
+          if(/SECTION|MAIN|HEADER|FOOTER/.test(node.tagName)){ break; }
+          node = node.parentElement;
+        }
+        if(node && !node.id){
+          node.id = id;
+        }
+      }
+    }catch(e){}
+  }
+
+  // Bind anchors to real content when possible
+  document.addEventListener('DOMContentLoaded', function(){
+    // Animation candidates
+    tagByText(/Animation|Portfolio|Our Work|Projects/i, 'animation');
+    // Contact candidates
+    tagByText(/Contact|Get in Touch|Email|Phone/i, 'contact');
+    // About page might be a separate file; we still tag if the content exists here
+    tagByText(/About(\s+Us)?|About\s+B1akman|About\s+BeOne/i, 'about');
+  });
+
+  // Hamburger toggle
+  var toggle = document.querySelector('.custom-nav .nav-toggle');
+  var list = document.querySelector('.custom-nav ul');
+  if (toggle && list){
+    toggle.addEventListener('click', function(){
+      var open = list.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  }
+
+  // Active link on scroll + page-aware highlighting
+  var links = document.querySelectorAll('.custom-nav a');
+  function setActive(){
+    // If this is about.html, highlight About
+    var isAboutPage = /about\.html(\?|#|$)/i.test(location.pathname) || document.title.toLowerCase().includes('about');
+    links.forEach(function(a){ a.classList.remove('active'); });
+    if(isAboutPage){
+      var al = document.querySelector('.custom-nav a[href$="about.html"]');
+      if(al) al.classList.add('active');
+      return;
+    }
+    // Otherwise use scrolling anchors
+    var anchorLinks = document.querySelectorAll('.custom-nav a[href^="#"]');
+    var sections = Array.prototype.map.call(anchorLinks, function(a){
+      var sel = a.getAttribute('href'); 
+      if(!sel) return null; 
+      try{ return document.querySelector(sel); }catch(e){ return null; }
+    }).filter(Boolean);
+    var fromTop = window.scrollY + 140;
+    var current = null;
+    for (var i=0; i<sections.length; i++){
+      if (sections[i].offsetTop <= fromTop){ current = sections[i]; }
+    }
+    if(current){
+      var active = document.querySelector('.custom-nav a[href="#'+current.id+'"]');
+      if(active) active.classList.add('active');
+    } else {
+      var home = document.querySelector('.custom-nav a[href$="index.html"]');
+      if(home) home.classList.add('active');
+    }
+  }
+  window.addEventListener('scroll', setActive, { passive: true });
+  window.addEventListener('resize', setActive);
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(setActive, 300); });
+
+  // Smooth anchor fallback for older browsers
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('.custom-nav a[href^="#"]');
+    if(!a) return;
+    var id = a.getAttribute('href');
+    var target = null;
+    try{ target = document.querySelector(id); }catch(err){}
+    if(target){
+      e.preventDefault();
+      window.scrollTo({ top: target.offsetTop - 100, behavior: 'smooth' });
+    }
+  });
+})();
+</script>
+</body>
+</html>
